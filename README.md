@@ -8,7 +8,7 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 ## 2. Generate a .mobileconfig file for iOS 8
 
-*Replace `vpn1.yourdomain.tld` with your own domain name and make sure it resolves to you server's IP address.*
+*Replace `vpn1.example.com` with your own domain name and make sure it resolves to you server's IP address.*
 
     docker run -i -t --rm --volumes-from ikev2-vpn-server -e "HOST=vpn1.example.com" gaomd/ikev2-vpn-server generate-mobileconfig > ikev2-vpn.mobileconfig
 
