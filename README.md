@@ -12,6 +12,6 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
     docker run -i -t --rm --volumes-from ikev2-vpn-server -e "HOST=vpn1.example.com" gaomd/ikev2-vpn-server generate-mobileconfig > ikev2-vpn.mobileconfig
 
-This will generate an `ikev2-vpn.mobileconfig` file, transfer it your local computer via SSH tunnel (`scp`) or any other secure methods, then E-mail it to your iOS 8 devices via E-mail attachment.
+This will generate an `ikev2-vpn.mobileconfig` file, transfer it to your local computer via SSH tunnel (`scp`) or any other secure methods, then E-mail it to your iOS 8 devices via E-mail attachment.
 
 *IKEv2 protocol requires iOS 8 or later, Mac OS X 10.10 (Yosemite) is not supported yet.*
