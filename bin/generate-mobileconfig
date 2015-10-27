@@ -90,9 +90,15 @@ cat <<EOF
                     <string>SharedSecret</string>
                     <key>SharedSecret</key>
                     <string>${CONN_SHARED_SECRET}</string>
-                    <!-- The client uses EAP to authenticate -->
+                    <!-- Turn off EAP -->
                     <key>ExtendedAuthEnabled</key>
                     <integer>0</integer>
+                    <!-- AuthName key is required to dismiss the Enter Username screen, even if ExtendedAuthEnabled is false -->
+                    <key>AuthName</key>
+                    <string></string>
+                    <!-- AuthPassword key is required to dismiss the Enter Password screen, even if ExtendedAuthEnabled is false -->
+                    <key>AuthPassword</key>
+                    <string></string>
                 </dict>
             </dict>
         </array>
