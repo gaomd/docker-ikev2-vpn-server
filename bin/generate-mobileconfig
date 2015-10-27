@@ -115,10 +115,10 @@ cat <<EOF
                     <!-- Turn off EAP -->
                     <key>ExtendedAuthEnabled</key>
                     <integer>0</integer>
-                    <!-- AuthName key is required to dismiss the Enter Username screen, even if ExtendedAuthEnabled is false -->
+                    <!-- AuthName key is required to dismiss the Enter Username screen on iOS 9, even if ExtendedAuthEnabled is false -->
                     <key>AuthName</key>
                     <string></string>
-                    <!-- AuthPassword key is required to dismiss the Enter Password screen, even if ExtendedAuthEnabled is false -->
+                    <!-- AuthPassword key is required to dismiss the Enter Password screen on iOS 9, even if ExtendedAuthEnabled is false -->
                     <key>AuthPassword</key>
                     <string></string>
                 </dict>
