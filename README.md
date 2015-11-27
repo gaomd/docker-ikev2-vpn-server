@@ -14,7 +14,7 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 This command generates an `ikev2-vpn.mobileconfig` file, transfer it to your local computer via SSH tunnel (`scp`) or any other secure methods.
 
-### 3. Install .mobileconfig
+## 3. Install .mobileconfig
 
 - **iOS 9 or later**: AirDrop the `.mobileconfig` file to your iOS 9 device, finish the **Install Profile** screen;
 - **iOS 8 or later**: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up the **Install Profile** screen;
