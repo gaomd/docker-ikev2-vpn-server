@@ -32,5 +32,8 @@ iptables -t nat -A POSTROUTING -s 10.8.0.0/16 -o eth0 -j MASQUERADE
 SHARED_SECRET="123$(openssl rand -base64 32 2>/dev/null)"
 [ -f /etc/ipsec.secrets ] || echo ": PSK \"${SHARED_SECRET}\"" > /etc/ipsec.secrets
 
+# hotfix for https://github.com/gaomd/docker-ikev2-vpn-server/issues/7
+rm -f /var/run/starter.charon.pid
+
 # http://wiki.loopop.net/doku.php?id=server:vpn:strongswanonopenvz
 /usr/sbin/ipsec start --nofork
