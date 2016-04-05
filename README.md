@@ -24,7 +24,7 @@ Transfer the generated `ikev2-vpn.mobileconfig` file to your local computer via 
 
 ## Technical Details
 
-Upon container creation, a *shared secret* was generated for authentication purpose, no *certificate*, *username*, or *password* was ever used, simple life.
+Upon container creation, a *shared secret* was generated for authentication purpose, no *certificate*, *username*, or *password* was ever used, simple life!
 
 ## License
 
@@ -33,4 +33,5 @@ Copyright (c) 2016 Mengdi Gao, This software is licensed under the [MIT License]
 ---
 
 \* *IKEv2 protocol requires iOS 8 or later, Mac OS X 10.11 El Capitan is supported as well.*
+
 \* Install for **iOS 8 or later** or when your AirDrop fails: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up then finish the **Install Profile** screen;
