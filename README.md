@@ -1,4 +1,4 @@
-# IKEv2 VPN Server running on Docker
+# IKEv2 VPN Server on Docker
 
 Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gaomd/ikev2-vpn-server/) Docker image.
 
@@ -14,10 +14,10 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 This command generates an `ikev2-vpn.mobileconfig` file, transfer it to your local computer via SSH tunnel (`scp`) or any other secure methods.
 
-### 3. Install .mobileconfig
+## 3. Install .mobileconfig
 
 - **iOS 9 or later**: AirDrop the `.mobileconfig` file to your iOS 9 device, finish the **Install Profile** screen;
-- **iOS 8 or later**: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up the **Install Profile** screen;
-- **OS X 10.11 El Capitan or later**: Double click the `.mobileconfig` file to start the profile installation.
+- **iOS 8 or later**: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up then finish the **Install Profile** screen;
+- **OS X 10.11 El Capitan or later**: Double click the `.mobileconfig` file to start the *profile installation* wizard.
 
 *IKEv2 protocol requires iOS 8 or later, Mac OS X 10.11 El Capitan is supported as well.*
