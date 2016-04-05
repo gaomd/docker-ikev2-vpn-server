@@ -24,7 +24,7 @@ Transfer the generated `ikev2-vpn.mobileconfig` file to your local computer via 
 
 ## Technical Details
 
-Upon container creation, a single *shared secrets* was generated for authentication purpose, zero *certificate*, zero *username+password combination*, simple life.
+Upon container creation, a *shared secret* was generated for authentication purpose, no *certificate*, *username*, or *password* was ever used, simple life.
 
 ## License
 
