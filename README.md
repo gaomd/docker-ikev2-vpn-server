@@ -6,7 +6,7 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 ### 1. Start the IKEv2 VPN Server
 
-    docker run -d --name ikev2-vpn-server --privileged -p 500:500/udp -p 4500:4500/udp gaomd/ikev2-vpn-server:0.3.0
+    docker run -d --name ikev2-vpn-server --restart=always --privileged -p 500:500/udp -p 4500:4500/udp gaomd/ikev2-vpn-server:0.3.0
 
 ### 2. Generate the .mobileconfig (for iOS / OS X)
 
@@ -34,4 +34,4 @@ Copyright (c) 2016 Mengdi Gao, This software is licensed under the [MIT License]
 
 \* IKEv2 protocol requires iOS 8 or later, Mac OS X 10.11 El Capitan is supported as well.
 
-\* Install for **iOS 8 or later** or when your AirDrop fails: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up then finish the **Install Profile** screen.
+\* Install for **iOS 8 or later** or when your AirDrop fails: Send an E-mail to your iOS device with the `.mobileconfig` file as attachment, then tap the attachment to bring up and finish the **Install Profile** screen.
