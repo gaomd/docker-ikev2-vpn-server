@@ -38,7 +38,7 @@
 : ${CONN_UUID=$(uuidgen)}
 : ${CONN_HOST=${HOST}}
 : ${CONN_REMOTE_IDENTIFIER=${HOST}}
-CONN_SHARED_SECRET=$(cat /etc/ipsec.secrets | sed 's/.*"\(.*\)"/\1/g')
+CONN_SHARED_SECRET=$(cat /etc/ipsec.secrets | grep PSK | sed 's/.*"\(.*\)"/\1/g')
 
 cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>

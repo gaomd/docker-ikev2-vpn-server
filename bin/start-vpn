@@ -22,6 +22,46 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# https://gist.github.com/losisli/11081793
+function generate-certs() {
+	CN=$1
+
+	# root cert
+	ipsec pki --gen --outform pem > /etc/ipsec.d/private/caKey.pem
+	ipsec pki --self --in /etc/ipsec.d/private/caKey.pem \
+		--dn "C=CN, O=strongSwan, CN=strongSwan CA" \
+		--ca --outform pem > /etc/ipsec.d/cacerts/caCert.pem
+
+	# server cert
+	ipsec pki --gen --outform pem > /etc/ipsec.d/private/serverKey.pem
+	ipsec pki --pub --in /etc/ipsec.d/private/serverKey.pem | ipsec pki --issue \
+		--cacert /etc/ipsec.d/cacerts/caCert.pem \
+		--cakey /etc/ipsec.d/private/caKey.pem \
+		--dn "C=CN, O=strongSwan, CN=$CN" --san="$CN" \
+		--flag serverAuth --flag ikeIntermediate \
+		--outform pem > /etc/ipsec.d/certs/serverCert.pem
+	openssl pkcs12 -export -inkey /etc/ipsec.d/private/serverKey.pem \
+		-in /etc/ipsec.d/certs/serverCert.pem -name "server" \
+		-certfile /etc/ipsec.d/cacerts/caCert.pem \
+		-caname "strongSwan CA" \
+		-password pass: \
+		-out /etc/ipsec.d/certs/serverCert.p12
+
+	# client cert
+	ipsec pki --gen --outform pem > /etc/ipsec.d/private/clientKey.pem
+	ipsec pki --pub --in /etc/ipsec.d/private/clientKey.pem | ipsec pki --issue \
+		--cacert /etc/ipsec.d/cacerts/caCert.pem \
+		--cakey /etc/ipsec.d/private/caKey.pem \
+		--dn "C=CN, O=strongSwan, CN=client" \
+		--outform pem > /etc/ipsec.d/certs/clientCert.pem
+	openssl pkcs12 -export -inkey /etc/ipsec.d/private/clientKey.pem \
+		-in /etc/ipsec.d/certs/clientCert.pem -name "client" \
+		-certfile /etc/ipsec.d/cacerts/caCert.pem \
+		-caname "strongSwan CA" \
+		-password pass: \
+		-out /etc/ipsec.d/certs/clientCert.p12
+}
+
 # https://wiki.strongswan.org/projects/strongswan/wiki/ForwardingAndSplitTunneling
 # Continue reading: https://wiki.strongswan.org/projects/strongswan/wiki/VirtualIP
 sysctl net.ipv4.ip_forward=1
@@ -35,6 +75,39 @@ ip6tables -t nat -A POSTROUTING -s fd6a:6ce3:c8d8:7caa::/64 -o eth0 -j MASQUERAD
 # hotfix for openssl `unable to write 'random state'` stderr
 SHARED_SECRET="123$(openssl rand -base64 32 2>/dev/null)"
 [ -f /etc/ipsec.secrets ] || echo ": PSK \"${SHARED_SECRET}\"" > /etc/ipsec.secrets
+
+# configure for windows clients 
+if [ -n "$CERT_CN" ] && [ ! -f /etc/ipsec.d/certs/serverCert.pem ]; then
+	generate-certs $CERT_CN
+	cat >> /etc/ipsec.conf <<EOF
+
+conn win
+    keyexchange=ikev2
+    ike=aes256-sha1-modp1024!
+    esp=aes256-sha1!
+    dpdaction=clear
+    dpddelay=300s
+    rekey=no
+    left=%defaultroute
+    leftauth=pubkey
+    leftsubnet=0.0.0.0/0
+    leftcert=serverCert.pem
+    leftid="C=CN, O=strongSwan, CN=$CERT_CN"
+    right=%any
+    rightauth=eap-mschapv2
+    rightsourceip=10.8.0.0/16
+    rightsendcert=never
+    eap_identity=%any
+    auto=add
+EOF
+	VPN_USER=${VPN_USER:-vpnuser}
+	VPN_PASSWORD=${VPN_PASSWORD:-$(openssl rand -base64 32 2>/dev/null)}
+    cat >> /etc/ipsec.secrets <<EOF
+
+: RSA serverKey.pem
+$VPN_USER : EAP 	"$VPN_PASSWORD"
+EOF
+fi
 
 # hotfix for https://github.com/gaomd/docker-ikev2-vpn-server/issues/7
 rm -f /var/run/starter.charon.pid
