@@ -1,6 +1,6 @@
 # IKEv2 VPN Server on Docker
 
-Recipe to build [`nebukad/ikev2-vpn-server`](https://registry.hub.docker.com/u/nebukad/ikev2-vpn-alpine/) Docker image.
+Recipe to build [`nebukad/ikev2-vpn-alpine`](https://registry.hub.docker.com/u/nebukad/ikev2-vpn-alpine/) Docker image. Fork from [`gaomd/ikev2-vpn-server`](https://hub.docker.com/r/gaomd/ikev2-vpn-server/)
 
 ## Usage
 
