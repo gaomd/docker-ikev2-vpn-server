@@ -1,0 +1,15 @@
+ikev2-vpn-mobileconfig:
+  command: generate-mobileconfig
+  environment:
+    - HOST=** inset hostname here **
+  image: 'gaomd/ikev2-vpn-server:latest'
+  privileged: true
+  volumes_from:
+    - ikev2-vpn-server
+ikev2-vpn-server:
+  image: 'gaomd/ikev2-vpn-server:latest'
+  ports:
+    - '500:500/udp'
+    - '4500:4500/udp'
+  privileged: true
+  restart: always
