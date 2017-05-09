@@ -2,6 +2,8 @@ FROM alpine:3.5
 
 ENV HOST HOSTNAME
 
+LABEL version="1.0.1" update="09-05-2017"
+
 RUN apk update && apk upgrade \
     && apk add openssl util-linux strongswan bash \
     && rm -rf /var/cache/apk/* \
