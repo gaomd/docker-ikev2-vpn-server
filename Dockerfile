@@ -2,10 +2,11 @@ FROM alpine:3.6
 
 ENV HOST HOSTNAME
 
-LABEL version="1.0.2" update="01-06-2017"
+LABEL tags="latest 1.0.2" \
+      build_ver="02-06-2017"
 
-RUN apk update && apk upgrade \
-    && apk add openssl util-linux strongswan bash \
+RUN apk -U upgrade \
+    && apk add -U --no-cache openssl util-linux strongswan bash \
     && rm -rf /var/cache/apk/* \
     && rm -f /etc/ipsec.secrets
 
