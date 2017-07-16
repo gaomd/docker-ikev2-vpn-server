@@ -40,6 +40,8 @@
 : ${CONN_REMOTE_IDENTIFIER=${HOST}}
 CONN_SHARED_SECRET=$(cat /etc/ipsec.secrets | sed 's/.*"\(.*\)"/\1/g')
 
+EXCLUDE_SSID=${EXCLUDE_SSID:-""}
+
 cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -102,6 +104,14 @@ cat <<EOF
                     <integer>1</integer>
                     <key>OnDemandRules</key>
                     <array>
+			<dict>
+			    <key>Action</key>
+			    <string>Disconnect</string>
+			    <key>SSIDMatch</key>
+			    <array>
+				<string>${EXCLUDE_SSID}</string>
+			    </array>
+			</dict>
                         <dict>
                             <key>Action</key>
                             <string>Connect</string>
