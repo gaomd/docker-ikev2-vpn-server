@@ -40,7 +40,7 @@
 : ${CONN_REMOTE_IDENTIFIER=${HOST}}
 CONN_SHARED_SECRET=$(cat /etc/ipsec.secrets | sed 's/.*"\(.*\)"/\1/g')
 
-LOCAL_SSID=${LOCAL_SSID:-""}
+EXCLUDE_SSID=${EXCLUDE_SSID:-""}
 
 cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -109,7 +109,7 @@ cat <<EOF
 			    <string>Disconnect</string>
 			    <key>SSIDMatch</key>
 			    <array>
-				<string>${LOCAL_SSID}</string>
+				<string>${EXCLUDE_SSID}</string>
 			    </array>
 			</dict>
                         <dict>
