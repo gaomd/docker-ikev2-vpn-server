@@ -10,9 +10,9 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 ### 2. Generate the .mobileconfig (for iOS / macOS)
 
-    docker run --privileged -i -t --rm --volumes-from ikev2-vpn-server -e "HOST=vpn1.example.com" gaomd/ikev2-vpn-server:0.3.0 generate-mobileconfig > ikev2-vpn.mobileconfig
+    docker run --privileged -i -t --rm --volumes-from ikev2-vpn-server -e "HOST=vpn1.example.com" -e "LOCAL_SSID=myHomeWifi" gaomd/ikev2-vpn-server:0.3.0 generate-mobileconfig > ikev2-vpn.mobileconfig
 
-*Be sure to replace `vpn1.example.com` with your own domain name and resolve it to you server's IP address. Simply put an IP address is supported as well (and enjoy an even faster handshake speed).*
+*Be sure to replace `vpn1.example.com` with your own domain name and resolve it to you server's IP address. Simply put an IP address is supported as well (and enjoy an even faster handshake speed). Also replace `myHomeWifi` with the SSID of your WiFi to disable VPN while connected to your local network. Or remove the LOCAL_SSID environment variable to disable this behavior.*
 
 Transfer the generated `ikev2-vpn.mobileconfig` file to your local computer via SSH tunnel (`scp`) or any other secure methods.
 
