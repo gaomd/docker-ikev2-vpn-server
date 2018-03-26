@@ -3,7 +3,7 @@ FROM alpine:3.6
 ENV HOST HOSTNAME
 
 LABEL tags="latest 1.0.2" \
-      build_ver="22-02-2018"
+      build_ver="26-03-2018"
 
 RUN apk -U upgrade \
     && apk add -U --no-cache openssl util-linux strongswan bash \
