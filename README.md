@@ -30,7 +30,7 @@ Upon container creation, a *shared secret* was generated for authentication purp
 
 ## License
 
-Copyright (c) 2017 Mengdi Gao, Nebukad93,  This software is licensed under the [MIT License](LICENSE).
+Copyright (c) 2018 Mengdi Gao, Nebukad93,  This software is licensed under the [MIT License](LICENSE).
 
 ---
 
