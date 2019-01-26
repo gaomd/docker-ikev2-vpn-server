@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y upgrade \
     && DEBIAN_FRONTEND=noninteractive apt-get -y install strongswan iptables uuid-runtime ndppd openssl \
-    && rm -rf /var/lib/apt/lists/* # cache busted 20160406.1
+    && rm -rf /var/lib/apt/lists/*
 
 RUN rm /etc/ipsec.secrets
 RUN mkdir /config
