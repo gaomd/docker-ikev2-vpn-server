@@ -99,7 +99,7 @@ cat <<EOF
                     https://github.com/iphoting/ovpnmcgen.rb
                     -->
                     <key>OnDemandEnabled</key>
-                    <integer>1</integer>
+                    <integer>0</integer>
                     <key>OnDemandRules</key>
                     <array>
                         <dict>
@@ -121,6 +121,26 @@ cat <<EOF
                     <!-- AuthPassword key is required to dismiss the Enter Password screen on iOS 9, even if ExtendedAuthEnabled is false -->
                     <key>AuthPassword</key>
                     <string></string>
+                    <!-- The next two dictionaries are optional (as are the keys in them), but it is recommended to specify them as the default is to use 3DES.
+                     IMPORTANT: Because only one proposal is sent (even if nothing is configured here) it must match the server configuration -->
+                    <key>IKESecurityAssociationParameters</key>
+                    <dict>
+                        <key>EncryptionAlgorithm</key>
+                        <string>AES-256</string>
+                        <key>IntegrityAlgorithm</key>
+                        <string>SHA2-256</string>
+                        <key>DiffieHellmanGroup</key>
+                        <integer>14</integer>
+                    </dict>
+                    <key>ChildSecurityAssociationParameters</key>
+                    <dict>
+                        <key>EncryptionAlgorithm</key>
+                        <string>AES-256</string>
+                        <key>IntegrityAlgorithm</key>
+                        <string>SHA2-256</string>
+                        <key>DiffieHellmanGroup</key>
+                        <integer>14</integer>
+                    </dict>
                 </dict>
             </dict>
         </array>
