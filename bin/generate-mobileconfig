@@ -28,7 +28,7 @@
 [ "no${HOST}" = "no" ] && echo "\$HOST environment variable required." && exit 1
 
 : ${PROFILE_NAME="My IKEv2 VPN Profile"}
-: ${PROFILE_IDENTIFIER=$(echo -n "${HOST}." | tac -s. | sed 's/\.$//g')}
+: ${PROFILE_IDENTIFIER=$(echo -n "${HOST}." | sed 's/\.$//g')}
 : ${PROFILE_UUID=$(hostname)}
 
 # These variable, especially CONN_UUID, are bind to per username,
