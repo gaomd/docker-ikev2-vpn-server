@@ -39,6 +39,6 @@ SHARED_SECRET="123$(openssl rand -base64 32 2>/dev/null)"
 # hotfix for https://github.com/gaomd/docker-ikev2-vpn-server/issues/7
 rm -f /var/run/starter.charon.pid
 
-service ndppd start
+ndppd -d
 # http://wiki.loopop.net/doku.php?id=server:vpn:strongswanonopenvz
 /usr/sbin/ipsec start --nofork
