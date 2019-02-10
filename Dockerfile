@@ -1,9 +1,9 @@
 FROM alpine:3.9
 
-RUN apk --no-cache add --virtual .build-dependencies git make g++ linux-headers patch wget ca-certificates libnl3-dev glib-dev \
+RUN apk --no-cache add --virtual .build-dependencies git make g++ linux-headers wget ca-certificates libnl3-dev glib-dev \
     && mkdir -p /usr/src \
     && cd /usr/src \
-    && git clone https://github.com/navossoc/ndppd.git \
+    && git clone https://github.com/kotfenix/ndppd.git \
     && cd /usr/src/ndppd \
     && make && make install \
     && cd / && rm -rf /usr/src/ndppd \
