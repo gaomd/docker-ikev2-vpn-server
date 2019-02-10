@@ -10,7 +10,7 @@ RUN apk --no-cache add --virtual .build-dependencies git make g++ linux-headers 
     && apk del .build-dependencies
 
 RUN apk -U upgrade \
-    && apk add --update --no-cache openssl util-linux strongswan bash iptables ip6tables \
+    && apk add --update --no-cache openssl util-linux strongswan bash nftables \
     && rm -rf /var/cache/apk/* \
     && rm -f /etc/ipsec.secrets
 
