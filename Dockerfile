@@ -1,13 +1,14 @@
 FROM alpine:3.9
 
 RUN apk --no-cache add --virtual .build-dependencies make g++ linux-headers patch wget ca-certificates libnl3-dev glib-dev \
-	&& mkdir -p /usr/src \
-	&& wget -qO- https://github.com/navossoc/ndppd/archive/master.zip \
+    && mkdir -p /usr/src \
+    && cd /usr/src \
+    && wget -qO- https://github.com/navossoc/ndppd/archive/master.zip \
     && unzip master.zip \
-	&& cd /usr/src/ndppd-master \
-	&& make && make install \
-	&& cd / && rm -rf /usr/src/ndppd-master \
-	&& apk del .build-dependencies
+    && cd /usr/src/ndppd-master \
+    && make && make install \
+    && cd / && rm -rf /usr/src/ndppd-master \
+    && apk del .build-dependencies
 
 RUN apk -U upgrade \
     && apk add --update --no-cache openssl util-linux strongswan bash iptables ip6tables \
