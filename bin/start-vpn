@@ -2,7 +2,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Mengdi Gao
+# Copyright (c) 2017 Mengdi Gao, Nebukad93
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,13 +24,13 @@
 
 # https://wiki.strongswan.org/projects/strongswan/wiki/ForwardingAndSplitTunneling
 # Continue reading: https://wiki.strongswan.org/projects/strongswan/wiki/VirtualIP
-sysctl net.ipv4.ip_forward=1
-sysctl net.ipv6.conf.all.forwarding=1
-sysctl net.ipv6.conf.eth0.proxy_ndp=1
+#sysctl -w net.ipv4.ip_forward=1
+#sysctl net.ipv6.conf.all.forwarding=1
+#sysctl net.ipv6.conf.eth0.proxy_ndp=1
 iptables -t nat -A POSTROUTING -s 10.8.0.0/16 -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
 iptables -t nat -A POSTROUTING -s 10.8.0.0/16 -o eth0 -j MASQUERADE
-ip6tables -t nat -A POSTROUTING -s fd6a:6ce3:c8d8:7caa::/64 -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
-ip6tables -t nat -A POSTROUTING -s fd6a:6ce3:c8d8:7caa::/64 -o eth0 -j MASQUERADE
+#ip6tables -t nat -A POSTROUTING -s fd6a:6ce3:c8d8:7caa::/64 -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
+#ip6tables -t nat -A POSTROUTING -s fd6a:6ce3:c8d8:7caa::/64 -o eth0 -j MASQUERADE
 
 # hotfix for openssl `unable to write 'random state'` stderr
 SHARED_SECRET="123$(openssl rand -base64 32 2>/dev/null)"
@@ -39,6 +39,5 @@ SHARED_SECRET="123$(openssl rand -base64 32 2>/dev/null)"
 # hotfix for https://github.com/gaomd/docker-ikev2-vpn-server/issues/7
 rm -f /var/run/starter.charon.pid
 
-service ndppd start
 # http://wiki.loopop.net/doku.php?id=server:vpn:strongswanonopenvz
 /usr/sbin/ipsec start --nofork

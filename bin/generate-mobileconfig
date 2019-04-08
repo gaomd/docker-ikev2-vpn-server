@@ -2,7 +2,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Mengdi Gao
+# Copyright (c) 2017 Mengdi Gao, Nebukad93
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,18 +27,20 @@
 # In normal cases, you will only need to pass the HOST of your server.
 [ "no${HOST}" = "no" ] && echo "\$HOST environment variable required." && exit 1
 
-: ${PROFILE_NAME="My IKEv2 VPN Profile"}
-: ${PROFILE_IDENTIFIER=$(echo -n "${HOST}." | tac -s. | sed 's/\.$//g')}
+: ${PROFILE_NAME="$HOSTNAME IKEv2 VPN"}
+#: ${PROFILE_IDENTIFIER=$(echo -n "${HOST}." | tac | sed 's/\.$//g')}
+: ${PROFILE_IDENTIFIER=$HOSTNAME}
 : ${PROFILE_UUID=$(hostname)}
 
 # These variable, especially CONN_UUID, are bind to per username,
 # which currently, all users share the same secrets and configurations.
-: ${CONN_NAME="My IKEv2 VPN"}
+: ${CONN_NAME="$HOSTNAME IKEv2 VPN"}
 : ${CONN_IDENTIFIER="${PROFILE_IDENTIFIER}.shared-configuration"}
 : ${CONN_UUID=$(uuidgen)}
 : ${CONN_HOST=${HOST}}
 : ${CONN_REMOTE_IDENTIFIER=${HOST}}
 CONN_SHARED_SECRET=$(cat /etc/ipsec.secrets | sed 's/.*"\(.*\)"/\1/g')
+#CONN_SHARED_SECRET=$(sed 's/.*"\(.*\)"/\1/g' /etc/ipsec.secrets)
 
 cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -99,7 +101,7 @@ cat <<EOF
                     https://github.com/iphoting/ovpnmcgen.rb
                     -->
                     <key>OnDemandEnabled</key>
-                    <integer>1</integer>
+                    <integer>0</integer>
                     <key>OnDemandRules</key>
                     <array>
                         <dict>
