@@ -4,7 +4,9 @@ Recipe to build [`gaomd/ikev2-vpn-server`](https://registry.hub.docker.com/u/gao
 
 ## Usage
 
-### 1. Start the IKEv2 VPN Server
+#### For using iTunes Home Sharing / Plex Shareing connect directly to your LAN network
+
+### 1. Start the IKEv2 VPN Server (the -p options are outdated for utalizing Bonjour, bridge directly to LAN)
 
     docker run --privileged -d --name ikev2-vpn-server --restart=always -p 500:500/udp -p 4500:4500/udp gaomd/ikev2-vpn-server:0.3.0
 
